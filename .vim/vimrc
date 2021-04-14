@@ -82,8 +82,15 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
+" Map jj to esc
+inoremap jj <ESC>
+
+" Remap for jump into code and back
 nnoremap <leader>o <C-]>
 nnoremap <leader>b <C-t>
+
+" Find pattern in files
+nnoremap F :vimgrep // **/*<Left><Left><Left><Left><Left><Left>
 
 "--------------------------------------------------------------------------- 
 " Plugin config
