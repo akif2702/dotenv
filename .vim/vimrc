@@ -1,9 +1,9 @@
 " leader key
-let mapleader = "  "
+let mapleader = " "
 
-"--------------------------------------------------------------------------- 
+"---------------------------------------------------------------------------
 " Plugins
-"--------------------------------------------------------------------------- 
+"---------------------------------------------------------------------------
 call plug#begin('~/.vim/plugged')
 Plug 'Townk/vim-autoclose'
 Plug 'preservim/tagbar'
@@ -23,7 +23,7 @@ set hlsearch              " Highlight search results
 set ignorecase            " Search ingnoring case
 set smartcase             " Do not ignore case if the search patter has uppercase
 set noerrorbells          " I hate bells
-set belloff=esc   
+set belloff=esc
 set tabstop=4             " Tab size of 4 spaces
 set softtabstop=4         " On insert use 4 spaces for tab
 set shiftwidth=4
@@ -34,10 +34,11 @@ set clipboard=unnamed,unnamedplus     " Use the OS clipboard
 set showmatch
 set termguicolors
 set splitright splitbelow " Open at the bottom and right.Vim defaults open top
-set list lcs=tab:\¦\      "(here is a space)
 let &t_SI = "\e[6 q"      " Make cursor a line in insert
 let &t_EI = "\e[2 q"      " Make cursor a line in insert
 set colorcolumn=80
+set list
+set listchars=tab:>-,trail:.
 
 " auto reload vimrc when editing it
 autocmd! bufwritepost .vimrc source ~/.vimrc
