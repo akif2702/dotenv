@@ -37,6 +37,7 @@ set splitright splitbelow " Open at the bottom and right.Vim defaults open top
 set list lcs=tab:\¦\      "(here is a space)
 let &t_SI = "\e[6 q"      " Make cursor a line in insert
 let &t_EI = "\e[2 q"      " Make cursor a line in insert
+set colorcolumn=80
 
 " auto reload vimrc when editing it
 autocmd! bufwritepost .vimrc source ~/.vimrc
