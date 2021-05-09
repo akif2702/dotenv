@@ -105,6 +105,9 @@ nnoremap <leader>C :NERDTreeClose<CR>
 " CtrlP 
 nnoremap <leader>P :CtrlPClearCache<CR>
 
+" CTags
+nnoremap <leader>B :!ctags -R --exclude=node_modules --exclude=.meteor --exclude='packages/*/.build/'<Cr>
+
 "--------------------------------------------------------------------------- 
 " Plugin config
 "--------------------------------------------------------------------------- 
