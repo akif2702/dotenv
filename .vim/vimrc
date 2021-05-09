@@ -95,6 +95,16 @@ nnoremap <leader>b <C-t>
 " Find pattern in files
 nnoremap F :vimgrep // **/*<Left><Left><Left><Left><Left><Left>
 
+" Open pane in tab
+map <leader>T <C-w>T
+
+" NERDTree
+nnoremap <leader>O :NERDTreeToggle<CR>
+nnoremap <leader>C :NERDTreeClose<CR>
+
+" CtrlP 
+nnoremap <leader>P :CtrlPClearCache<CR>
+
 "--------------------------------------------------------------------------- 
 " Plugin config
 "--------------------------------------------------------------------------- 
