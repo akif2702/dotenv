@@ -13,7 +13,7 @@ sudo apt update && sudo apt upgrade -y
 
 # Installiere grundlegende Abhängigkeiten
 echo "Installiere grundlegende Abhängigkeiten..."
-sudo apt install -y apt-transport-https curl ca-certificates software-properties-common unzip lsb-release tmux gnumeric abiword
+sudo apt install -y apt-transport-https curl ca-certificates software-properties-common unzip lsb-release tmux gnumeric abiword mdf2iso unrar libreoffice
 
 # --- 1. Installiere Mutt ---
 echo "Installiere Mutt..."
