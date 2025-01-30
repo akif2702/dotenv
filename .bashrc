@@ -121,6 +121,13 @@ fi
 # ISO Mounten
 alias mountiso='sudo mount -o loop'
 
+# BAT existiert bereits deshalb batcat fuer die cat alternatife bat
+alias bat='batcat'
+
+#fd-find (fd) – Schnellere Version von find
+alias fd='fdfind'
+
+
 # Laptop und externen Bildschirm syncen
 alias sync-display="$HOME/sync/bash/commands/sync-display.sh"
 
