@@ -125,13 +125,14 @@ alias mountiso='sudo mount -o loop'
 alias sync-display="$HOME/sync/bash/commands/sync-display.sh"
 
 # Nur Bildschirm aufnehmen
-alias record_screen='ffmpeg -video_size $(xrandr | grep "*" | awk "{print \$1}") -framerate 30 -f x11grab -i :0.0 output.mp4'
+alias record_screen='ffmpeg -video_size $(command -v xrandr >/dev/null && xrandr | grep "*" | awk "{print \$1}") -framerate 30 -f x11grab -i :0.0 output.mp4'
 
 # Nur Bildschirm und Webcam aufnehmen
 alias record_screen_webcam='ffmpeg -video_size $(xrandr | grep "*" | awk "{print \$1}") -framerate 30 -f x11grab -i :0.0 \
-    -f v4l2 -video_size 640x480 -i /dev/video0 \
-    -filter_complex "[1:v]scale=320:240[cam];[0:v][cam]overlay=W-w-10:H-h-10" \
+    -f v4l2 -i /dev/video0 \
+    -filter_complex "[1:v]scale=iw/4:ih/4[cam];[0:v][cam]overlay=W-w-10:H-h-10" \
     -c:v libx264 -preset ultrafast -crf 23 output.mp4'
+
 
 # Bildschirm, Webcam und Mikrofon aufnehmen
 alias record_screen_webcam_mic='ffmpeg -video_size $(xrandr | grep "*" | awk "{print \$1}") -framerate 30 -f x11grab -i :0.0 \
@@ -146,7 +147,8 @@ alias record_screen_mic='ffmpeg -video_size $(xrandr | grep "*" | awk "{print \$
     -c:v libx264 -preset ultrafast -crf 23 -c:a aac -b:a 128k output.mp4'
 
 # Einzelnes Video herunterladen (beste Qualität)
-alias ytdl-video='yt-dlp -f "bestvideo+bestaudio/best" -o "%(title)s.%(ext)s"'
+alias ytdl-video='yt-dlp -f "bestvideo+bestaudio/best" -o "%(upload_date)s - %(title).200s.%(ext)s" --restrict-filenames'
+
 
 # Playlist herunterladen
 alias ytdl-playlist='yt-dlp --yes-playlist -o "%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s"'
@@ -159,7 +161,32 @@ alias ytdl-channel='yt-dlp --yes-playlist -o "%(uploader)s/%(upload_date)s - %(t
 
 
 # Programme beim start
-neofetch
+if [[ $- == *i* ]]; then
+    neofetch
+fi
 
 # SSH Agent starten
-eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_rsa
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    eval "$(ssh-agent -s)" > /dev/null
+fi
+
+# SSH-Agent persistieren und für alle Terminals nutzbar machen
+SSH_ENV="$HOME/.ssh/agent.env"
+
+function start_ssh_agent {
+    echo "🔑 Starte neuen ssh-agent..."
+    ssh-agent | sed 's/^echo/#echo/' > "$SSH_ENV"
+    chmod 600 "$SSH_ENV"
+    . "$SSH_ENV" > /dev/null
+    ssh-add ~/.ssh/id_rsa
+}
+
+# Prüfen, ob ein SSH-Agent läuft und wiederverwenden
+if [ -f "$SSH_ENV" ]; then
+    . "$SSH_ENV" > /dev/null
+    if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+        start_ssh_agent
+    fi
+else
+    start_ssh_agent
+fi
